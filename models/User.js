@@ -8,24 +8,25 @@ class User {
 		this.salt_rounds = 10;
 	}
 
-	getUserById = async (user_id) => {
+	getUserByUserId = async (user_id) => {
 		const sql = `
 			SELECT
-				id,
+				user_id,
 				username
 			FROM
 				user
 			WHERE
-				id = ?
+				user_id = ?
 			LIMIT 1`;
 		const params = [user_id];
-		return await this.db.query(sql, params);
+		const user = await this.db.query(sql, params);
+		return user[0];
 	}
 
 	getUserByUsername = async (username) => {
 		const sql = `
 			SELECT
-				id,
+				user_id,
 				username,
 				password
 			FROM
@@ -34,19 +35,18 @@ class User {
 				username = ?
 			LIMIT 1`;
 		const params = [username];
-		return await this.db.query(sql, params);
+		let user = await this.db.query(sql, params);
+		return user[0];
 	}
 
-	register = async (username, plaintext_password, email) => {
+	register = async (username, plaintext_password) => {
 		const sql = `
 			INSERT INTO
 				user
 			SET
-				email = ?
 				username = ?,
 				password = ?`;
 		const params = [
-			email,
 			username,
 			await this.hashPassword(plaintext_password),
 		];

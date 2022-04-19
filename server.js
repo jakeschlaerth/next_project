@@ -5,11 +5,9 @@ const LoginController = require('./controllers/loginController');
 
 var port = 3000;
 
-
 app.post('/auth', LoginController.authenticateUser);
 
 app.post('/register', LoginController.registerUser);
-
 
 app.get('/', function (req, res) {
 	res.statusCode = 200;

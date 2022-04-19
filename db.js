@@ -18,15 +18,7 @@ class Database {
 			conn = await this.pool.getConnection();
 			let rows = await conn.query(query_string, params);
 			conn.end();
-			return new Promise((resolve, reject) => {
-				if (rows.length > 1) {
-					resolve(rows);
-				} else if (rows.length == 1) {
-					resolve(rows[0])
-				} else {
-					reject(false);
-				}
-			});
+			return rows;
 		}
 		catch (err) {
 			console.log(err);
