@@ -1,11 +1,10 @@
-class User {
+const Model = require('./Model.js');
+
+class User extends Model {
 
 	constructor() {
-		this.db = require('../db');
-		this.config = require('config');
-		this.bcrypt = require('bcrypt');
-		this.jwt = require('jsonwebtoken');
-		this.salt_rounds = 10;
+		super();
+		this.salt_rounds = this.config.get('bcrypt.salt_rounds');
 	}
 
 	getUserByUserId = async (user_id) => {
@@ -62,7 +61,11 @@ class User {
 	}
 
 	generateToken = user => {
-		return this.jwt.sign(user, this.config.get('private_key'));
+		return this.jwt.sign(user, this.config.get('jwt.private_key'));
+	}
+
+	decryptToken = token => {
+		return this.jwt.verify(token, his.config.get('jwt.private_key'));
 	}
 }
 
