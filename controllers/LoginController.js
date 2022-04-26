@@ -24,8 +24,7 @@ class LoginController {
 			if (await User.getUserByUsername(req.body.username)) {
 				throw 'Username not available';
 			}
-			console.log(req.body);
-			User.register(req.body.username, req.body.password);
+			await User.register(req.body.username, req.body.password);
 			let user = await User.getUserByUsername(req.body.username);
 			res.json({
 				'jwt': User.generateToken(user),

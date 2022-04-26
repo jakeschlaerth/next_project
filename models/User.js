@@ -61,11 +61,12 @@ class User extends Model {
 	}
 
 	generateToken = user => {
+		delete user.password;
 		return this.jwt.sign(user, this.config.get('jwt.private_key'));
 	}
 
 	decryptToken = token => {
-		return this.jwt.verify(token, his.config.get('jwt.private_key'));
+		return this.jwt.verify(token, this.config.get('jwt.private_key'));
 	}
 }
 
