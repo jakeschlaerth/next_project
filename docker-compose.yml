@@ -1,0 +1,7 @@
+services:
+    watr_api:
+        build: .
+        volumes:
+            - ./:/watr_api
+        ports:
+            - "3000:3000"
