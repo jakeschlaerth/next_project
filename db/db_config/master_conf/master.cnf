@@ -1,0 +1,5 @@
+[mariadb]
+log-bin					# enable binary logging
+server_id=1				# used to uniquely identify the server
+log-basename=my-mariadb	# used to be independent of hostname changes  
+#binlog-format=MIXED	# default

@@ -10,12 +10,12 @@ class User extends Model {
 	getUserByUserId = async (user_id) => {
 		const sql = `
 			SELECT
-				user_id,
+				id,
 				username
 			FROM
 				user
 			WHERE
-				user_id = ?
+				id = ?
 			LIMIT 1`;
 		const params = [user_id];
 		const user = await this.db.query(sql, params);
@@ -25,7 +25,7 @@ class User extends Model {
 	getUserByUsername = async (username) => {
 		const sql = `
 			SELECT
-				user_id,
+				id,
 				username,
 				password
 			FROM
@@ -33,6 +33,7 @@ class User extends Model {
 			WHERE
 				username = ?
 			LIMIT 1`;
+
 		const params = [username];
 		let user = await this.db.query(sql, params);
 		return user[0];

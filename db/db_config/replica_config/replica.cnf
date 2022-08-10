@@ -1,0 +1,6 @@
+[mariadb]
+server_id=2					# used to uniquely identify the server
+log-basename=my-mariadb		# used to be independent of hostname changes 
+replicate_do_db=portfolio	# replicate only this DB
+#binlog-format=MIXED		# default 
+read_only=1					# don't write

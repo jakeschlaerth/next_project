@@ -1,7 +1,37 @@
 services:
-    watr_api:
-        build: .
-        volumes:
-            - ./:/watr_api
-        ports:
-            - "3000:3000"
+
+  api:
+    build: ./api
+    volumes:
+      - ./api:/api
+    ports:
+      - 3001:3000
+    links:
+      - master_database:master_database
+
+  frontend:
+    depends_on:
+      - api
+    build: ./frontend
+    volumes:
+      - ./frontend:/frontend
+    ports:
+      - 3000:3000
+    links:
+      - api:api
+
+  master_database:
+    image: "mariadb:latest"
+    restart: always
+    volumes:
+      - ./db/db_config/master_conf:/etc/mysql/conf.d:z
+      - ./db/db_init/master_init:/docker-entrypoint-initdb.d
+      - ./db/logs/master_logs:/var/lib/mysql
+    environment:
+      MARIADB_ROOT_PASSWORD: $MARIADB_ROOT_PASSWORD
+      MYSQL_INITDB_SKIP_TZINFO: "Y"
+      REPLICA_USER: $REPLICA_USER
+      REPLICA_PASSWORD: $REPLICA_PASSWORD
+    working_dir: /var/lib/mysql
+    ports:
+      - 3306:3306

@@ -1,5 +1,5 @@
-var config = require('config');
-var mariadb = require('mariadb');
+const config = require('config');
+const mariadb = require('mariadb');
 
 class Database {
 	constructor() {
