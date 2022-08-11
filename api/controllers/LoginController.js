@@ -4,7 +4,6 @@ class LoginController {
 
 	authenticateUser = async (req, res) => {
 		try {
-			console.log(req.body)
 			let user = await User.getUserByUsername(req.body.username);
 			if (! await User.authenticatePassword(req.body.password, user.password)) {
 				throw 'Bad credentials';

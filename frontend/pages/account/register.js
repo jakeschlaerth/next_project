@@ -19,16 +19,15 @@ const Register = () => {
 			const response = await registerUser(data);
 			switch (response.status) {
 				case 200:
-					setCookie("user", response.jwt, {
-						path: "/",
-						maxAge: 3600, // Expires after 1hr
+					setCookie("user", response.body, {
+						path: "/account",
+						maxAge: 3600, // expires after 1hr
 						sameSite: true,
 					});
 					router.push("/account/home");
 					break;
 				case 400:
-					// creds not accepted
-					setError("no");
+					setError("username taken");
 					break;
 				default:
 					// something went wrong
@@ -38,7 +37,6 @@ const Register = () => {
 			console.log(error);
 		}
 	}
-	// console.log(errors);
 
 	return (
 		<div className={styles.container}>

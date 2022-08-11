@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from 'next/router';
 import { useCookies } from "react-cookie"
-
 import Link from "next/link";
+
 import styles from "@styles/Account.module.css";
 import { authUser } from "@services/portfolio_api";
-
 
 
 const Login = () => {
@@ -18,10 +17,9 @@ const Login = () => {
 	const onSubmit = async (data) => {
 		try {
 			const response = await authUser(data);
-			const body = await response.json();
 			switch (response.status) {
 				case 200:
-					setCookie("user", body, {
+					setCookie("user", response.body, {
 						path: "/account",
 						maxAge: 3600, // Expires after 1hr
 						sameSite: true,
@@ -39,8 +37,6 @@ const Login = () => {
 		} catch (error) {
 			console.log(error);
 		}
-
-
 	}
 
 	return (
@@ -49,7 +45,6 @@ const Login = () => {
 				{error && <span className={styles.error}>{error}</span>}
 				<input type="text" placeholder="username" {...register("username", { required: true })} />
 				<input type="password" placeholder="password" {...register("password", { required: true })} />
-
 				<button>Login</button>
 				<Link href="/account/register">register</Link>
 			</form>

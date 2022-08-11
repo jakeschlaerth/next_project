@@ -53,22 +53,16 @@ class User extends Model {
 		return await this.db.query(sql, params);
 	}
 
-	authenticatePassword = async (entered_password, user_password) => {
-		return await this.bcrypt.compare(entered_password, user_password);
-	}
+	hashPassword = async (plaintext_password) => await this.bcrypt.hash(plaintext_password, this.salt_rounds);
 
-	hashPassword = async (plaintext_password) => {
-		return await this.bcrypt.hash(plaintext_password, this.salt_rounds);
-	}
+	authenticatePassword = async (entered_password, user_password) => await this.bcrypt.compare(entered_password, user_password);
 
 	generateToken = user => {
 		delete user.password;
 		return this.jwt.sign(user, this.config.get('jwt.private_key'));
 	}
 
-	decryptToken = token => {
-		return this.jwt.verify(token, this.config.get('jwt.private_key'));
-	}
+	decryptToken = token => this.jwt.verify(token, this.config.get('jwt.private_key'));
 }
 
 module.exports = new User();

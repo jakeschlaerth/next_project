@@ -19,18 +19,17 @@ export default function Home() {
 
 			<main className={styles.main}>
 				<h1 className={styles.title}>
-					Welcome to <a href="https://nextjs.org">Next.js!</a>
+					jake schlaerth
 				</h1>
 
 				<p className={styles.description}>
-					Get started by editing{' '}
-					<code className={styles.code}>pages/index.js</code>
+					work
 				</p>
 
 				<div className={styles.grid}>
-					<a href="https://nextjs.org/docs" className={styles.card}>
-						<h2>Documentation &rarr;</h2>
-						<p>Find in-depth information about Next.js features and API.</p>
+					<a href="https://github.com/jakeschlaerth/next_project" className={styles.card}>
+						<h2>this portfolio &rarr;</h2>
+						<p></p>
 					</a>
 
 					<a href="https://nextjs.org/learn" className={styles.card}>
@@ -56,7 +55,7 @@ export default function Home() {
 						</p>
 					</a>
 				</div>
-			</main>
+			</main >
 
 			<footer className={styles.footer}>
 				<a
@@ -70,6 +69,6 @@ export default function Home() {
 					</span>
 				</a>
 			</footer>
-		</div>
+		</div >
 	)
 }
